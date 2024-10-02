@@ -19,15 +19,15 @@ A robust, flexible authentication package for Node.js applications.
 ## Installation
 
 ```bash
-npm install @octane/auth
+npm install octane-auth
 # or
-yarn add @octane/auth
+yarn add octane-auth
 ```
 
 ## Quick Start
 
 ```javascript
-const OctaneAuth = require("@octane/auth");
+const OctaneAuth = require("octane/auth");
 const express = require("express");
 
 const app = express();
@@ -212,7 +212,7 @@ app.use(
 Octane Auth includes TypeScript definitions out of the box:
 
 ```typescript
-import OctaneAuth from "@octane/auth";
+import OctaneAuth from "octane-auth";
 
 interface User {
     id: number;
@@ -233,7 +233,7 @@ We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) f
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/octane/auth.git
+git clone https://github.com/devoctane/octane-auth.git
 cd auth
 ```
 
@@ -255,4 +255,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-For more information, visit our [official website](https://octane.dev/auth) or join our [Discord community](https://discord.gg/octane-auth).
+For more information, visit our [official website](https://devoctane.in/packages/octane-auth) .
