@@ -11,6 +11,9 @@ class OctaneAuth {
   }
 
   async hashPassword(password) {
+    if (!password || password.length === 0)
+      throw new Error('Please provide a valid password');
+
     return bcrypt.hash(password, this.options.saltRounds);
   }
 
