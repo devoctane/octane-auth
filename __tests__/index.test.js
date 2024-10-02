@@ -51,9 +51,8 @@ describe('OctaneAuth', () => {
     // Test for refresh token generation and validation
     it('should refresh the access token using a valid refresh token', () => {
         const tokens = auth.generateTokens(payload);
-        console.log(payload);
-        
         const newTokens = auth.refreshAccessToken(tokens.refreshToken);
+console.log(newTokens);
 
         expect(newTokens.accessToken).toBeDefined();
         expect(newTokens.refreshToken).toEqual(tokens.refreshToken); // Same refresh token

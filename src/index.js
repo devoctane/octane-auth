@@ -28,7 +28,7 @@ class OctaneAuth {
 
     // Generates both access and refresh tokens
     generateTokens(payload) {
-        
+
         const accessToken = jwt.sign(payload, this.options.jwtSecret, {
             expiresIn: this.options.tokenExpiration,
         });
@@ -71,9 +71,10 @@ class OctaneAuth {
     // Refresh the access token using a valid refresh token
     refreshAccessToken(refreshToken) {
         const payload = this.verifyRefreshToken(refreshToken);
-
+        console.log(payload);
+        
         // Generate new access token
-        const newAccessToken = this.generateTokens(payload);
+        const newAccessToken = this.generateTokens({userID:payload.userID});
 
         return { accessToken: newAccessToken, refreshToken }; // Keep the same refresh token
     }
