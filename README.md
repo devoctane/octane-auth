@@ -27,7 +27,7 @@ yarn add octane-auth
 ## Quick Start
 
 ```javascript
-const OctaneAuth = require("octane/auth");
+const OctaneAuth = require("octane-auth");
 const express = require("express");
 
 const app = express();
