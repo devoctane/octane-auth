@@ -1,5 +1,6 @@
 # Octane Auth Documentation
 
+
 ![Octane Auth Logo](src/assets/images/octane-auth.png)
 
 A robust, flexible authentication package for Node.js applications.
