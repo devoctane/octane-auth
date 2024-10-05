@@ -1,0 +1,27 @@
+{
+    "name": "octane-auth",
+    "version": "1.0.0",
+    "description": "A robust, flexible authentication package for Node.js applications.",
+    "main": "src/index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "type": "module",
+    "keywords": [
+        "authentication",
+        "jwt",
+        "oauth",
+        "security",
+        "octane innovations"
+    ],
+    "author": "Octane Innovations",
+    "license": "ISC",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/devoctane/octane-auth.git"
+    },
+    "homepage": "https://github.com/devoctane/octane-auth#readme",
+    "dependencies": {
+        "argon2": "^0.41.1"
+    }
+}
