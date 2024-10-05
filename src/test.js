@@ -35,8 +35,8 @@ const testGenerateTokens = () => {
 
     try {
         const res = auth.verifyRefreshToken(tokens.refreshToken);
-        const newToken=auth.refreshAccessToken(tokens.refreshToken);
-        console.log('new access token',newToken);
+        const newToken = auth.refreshAccessToken(tokens.refreshToken);
+        console.log("new access token", newToken);
     } catch (error) {
         console.log(error);
     }
