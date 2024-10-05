@@ -35,8 +35,11 @@ const testGenerateTokens = () => {
 
     try {
         const res = auth.verifyRefreshToken(tokens.refreshToken);
-        const newToken = auth.refreshAccessToken(tokens.refreshToken);
-        console.log("new access token", newToken);
+        const newToken=auth.refreshAccessToken(tokens.refreshToken);
+        // console.log('new access token',newToken);
+        const data=auth.invalidateRefreshToken(tokens.refreshToken)
+     //*******************************************do we need to return that refresh token is deleted?*****************************************
+
     } catch (error) {
         console.log(error);
     }

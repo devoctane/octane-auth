@@ -1,9 +1,18 @@
- // Refresh the access token using a valid refresh token
-    refreshAccessToken(refreshToken) {
-        const payload = this.verifyRefreshToken(refreshToken);
-        console.log(payload);
-        
-        // Generate new access token
-        const newAccessToken = this.generateTokens({userID:payload.userID});
-        return { accessToken: newAccessToken, refreshToken }; // Keep the same refresh token
+
+
+     // Express middleware to authenticate the access token
+     authenticate() {
+        return (req, res, next) => {
+            const token = req.headers.authorization?.split(" ")[1];
+            if (!token) {
+                return res.status(401).json({ error: "No token provided" });
+            }
+            try {
+                const decoded = this.verifyToken(token);
+                req.user = decoded;
+                next();
+            } catch (error) {
+                return res.status(401).json({ error: "Invalid token" });
+            }
+        };
     }

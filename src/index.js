@@ -74,5 +74,29 @@ export default class OctaneAuth {
         // Keep the same refresh token
         return {tokens:newAccessToken}
     }
-    
+
+     // Invalidate a refresh token
+     invalidateRefreshToken(refreshToken) {
+           this.refreshTokens.delete(refreshToken)
+    }
+     
+
+     // Express middleware to authenticate the access token
+    authenticate(){
+        return(req,res,next)=>{
+            const token=req.headers.authorization?.split(" ")[1];
+            if(!token){
+                return res.status(401).json({error: "No token provided" });
+            }
+            try{
+                const decoded=this.verifyToken(token);
+                req.user=decoded;
+                next();
+            }
+            catch(error){
+                   return res.status(401).json({error:"invalid token"});
+            }
+        }
+    }
+
 }
