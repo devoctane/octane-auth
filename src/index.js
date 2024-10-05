@@ -58,45 +58,42 @@ export default class OctaneAuth {
                 throw new Error("Invalid refresh token!");
             }
 
-            return payload; 
+            return payload;
         } catch (error) {
             throw new Error("Invalid refresh token!");
         }
     }
 
     // Refresh the access token using a valid refresh token
-    refreshAccessToken(refreshToken){
-        const payload=this.verifyRefreshToken(refreshToken);
+    refreshAccessToken(refreshToken) {
+        const payload = this.verifyRefreshToken(refreshToken);
 
-        //generate a new access token 
-        const newAccessToken=this.generateTokens({userId:payload.userId})
-        
+        //Generate a new access token
+        const newAccessToken = this.generateTokens({ userId: payload.userId });
+
         // Keep the same refresh token
-        return {tokens:newAccessToken}
+        return { tokens: newAccessToken };
     }
 
-     // Invalidate a refresh token
-     invalidateRefreshToken(refreshToken) {
-           this.refreshTokens.delete(refreshToken)
+    // Invalidate a refresh token
+    invalidateRefreshToken(refreshToken) {
+        this.refreshTokens.delete(refreshToken);
     }
-     
 
-     // Express middleware to authenticate the access token
-    authenticate(){
-        return(req,res,next)=>{
-            const token=req.headers.authorization?.split(" ")[1];
-            if(!token){
-                return res.status(401).json({error: "No token provided" });
+    // Express middleware to authenticate the access token
+    authenticate() {
+        return (req, res, next) => {
+            const token = req.headers.authorization?.split(" ")[1];
+            if (!token) {
+                return res.status(401).json({ error: "No token provided" });
             }
-            try{
-                const decoded=this.verifyToken(token);
-                req.user=decoded;
+            try {
+                const decoded = this.verifyToken(token);
+                req.user = decoded;
                 next();
+            } catch (error) {
+                return res.status(401).json({ error: "invalid token" });
             }
-            catch(error){
-                   return res.status(401).json({error:"invalid token"});
-            }
-        }
+        };
     }
-
 }
