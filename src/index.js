@@ -48,4 +48,19 @@ export default class OctaneAuth {
             throw new Error("Invalid token!");
         }
     }
+
+    verifyRefreshToken(token) {
+        try {
+            const payload = jwt.verify(token, this.options.refreshSecret);
+
+            // Ensure the refresh token is stored (not invalidated)
+            if (!this.refreshTokens.has(token)) {
+                throw new Error("Invalid refresh token!");
+            }
+
+            return payload;
+        } catch (error) {
+            throw new Error("Invalid refresh token!");
+        }
+    }
 }

@@ -32,6 +32,13 @@ const testGenerateTokens = () => {
     } catch (error) {
         console.error("Token verification failed:", error.message);
     }
+
+    try {
+        const res = auth.verifyRefreshToken(tokens.refreshToken);
+        console.log(res);
+    } catch (error) {
+        console.log(error);
+    }
 };
 
 testGenerateTokens();
