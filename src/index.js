@@ -1,17 +1,17 @@
 import * as argon2 from "argon2";
+import jwt from "jsonwebtoken";
 
 export default class OctaneAuth {
     constructor(options = {}) {
-        //    this.options = {
-        //   jwtSecret: options.jwtSecret || "your-secret-key",
-        //   refreshSecret: options.refreshSecret || "your-refresh-secret-key",
-        //   tokenExpiration: options.tokenExpiration || "1h", // Access token expiration
-        //   refreshTokenExpiration: options.refreshTokenExpiration || "7d", // Refresh token expiration
-        //   saltRounds: options.saltRounds || 10,
-        //    };
+        this.options = {
+            jwtSecret: options.jwtSecret || "your-secret-key",
+            refreshSecret: options.refreshSecret || "your-refresh-secret-key",
+            tokenExpiration: options.tokenExpiration || "1h", // Access token expiration
+            refreshTokenExpiration: options.refreshTokenExpiration || "7d", // Refresh token expiration
+        };
         // In-memory storage for refresh tokens
         // In production, use a database instead
-        //    this.refreshTokens = new Map();
+        this.refreshTokens = new Map();
     }
 
     async hashPassword(password) {
@@ -22,8 +22,30 @@ export default class OctaneAuth {
     }
 
     async verifyPassword(hash, password) {
-        const verifyPassword = await argon2.verify(hash, password);
-        console.log(verifyPassword);
-        //    return await argon2.verify(hash, password);
+        return await argon2.verify(hash, password); //Return password verify status (true, false)
+    }
+
+    // Generates both access and refresh tokens
+    generateTokens(payload) {
+        const accessToken = jwt.sign(payload, this.options.jwtSecret, {
+            expiresIn: this.options.tokenExpiration,
+        });
+
+        const refreshToken = jwt.sign(payload, this.options.refreshSecret, {
+            expiresIn: this.options.refreshTokenExpiration,
+        });
+
+        // Store the refresh token (use a database in production)
+        this.refreshTokens.set(refreshToken, payload);
+
+        return { accessToken, refreshToken };
+    }
+
+    verifyToken(token) {
+        try {
+            return jwt.verify(token, this.options.jwtSecret);
+        } catch (error) {
+            throw new Error("Invalid token!");
+        }
     }
 }
