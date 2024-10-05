@@ -20,22 +20,23 @@ const payload = {
 const testGenerateTokens = () => {
     const tokens = auth.generateTokens(payload);
 
-    console.log("Access Token:", tokens.accessToken);
-    console.log("Refresh Token:", tokens.refreshToken);
+    // console.log("Access Token:", tokens.accessToken);
+    // console.log("Refresh Token:", tokens.refreshToken);
 
     const decoded = jwt.decode(tokens.accessToken);
-    console.log("Decoded Access Token Payload:", decoded);
+    // console.log("Decoded Access Token Payload:", decoded);
 
     try {
         const decodedToken = auth.verifyToken(tokens.accessToken);
-        console.log("Decoded Token Payload:", decodedToken);
+        // console.log("Decoded Token Payload:", decodedToken);
     } catch (error) {
         console.error("Token verification failed:", error.message);
     }
 
     try {
         const res = auth.verifyRefreshToken(tokens.refreshToken);
-        console.log(res);
+        const newToken=auth.refreshAccessToken(tokens.refreshToken);
+        console.log('new access token',newToken);
     } catch (error) {
         console.log(error);
     }

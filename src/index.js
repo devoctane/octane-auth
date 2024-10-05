@@ -58,9 +58,21 @@ export default class OctaneAuth {
                 throw new Error("Invalid refresh token!");
             }
 
-            return payload;
+            return payload; 
         } catch (error) {
             throw new Error("Invalid refresh token!");
         }
     }
+
+    // Refresh the access token using a valid refresh token
+    refreshAccessToken(refreshToken){
+        const payload=this.verifyRefreshToken(refreshToken);
+
+        //generate a new access token 
+        const newAccessToken=this.generateTokens({userId:payload.userId})
+        
+        // Keep the same refresh token
+        return {tokens:newAccessToken}
+    }
+    
 }
