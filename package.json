@@ -1,7 +1,7 @@
 {
     "name": "octane-auth",
-    "version": "1.0.0",
-    "description": "Simple and secure authentication package for Node.js applications",
+    "version": "1.0.1",
+    "description": "A robust, flexible authentication package for Node.js applications.",
     "main": "dist/index.js",
     "scripts": {
         "build": "babel src -d dist",
