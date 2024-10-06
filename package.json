@@ -1,7 +1,7 @@
 {
     "name": "octane-auth",
     "version": "1.0.2",
-    "description": "A robust, flexible authentication package for Node.js applications.",
+    "description": "OctaneAuth is a simple and customizable authentication module for JavaScript applications.",
     "main": "src/index.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1"
