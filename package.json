@@ -1,6 +1,6 @@
 {
     "name": "octane-auth",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "description": "OctaneAuth is a simple and customizable authentication module for JavaScript applications.",
     "main": "src/index.js",
     "scripts": {

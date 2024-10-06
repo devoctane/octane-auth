@@ -1,17 +1,17 @@
 # Octane Auth Documentation
 
-![Octane Auth Logo](src/assets/images/octane-auth.png)
+![Octane Auth Logo](https://github.com/devoctane/file-system/blob/main/octane-auth/assets/images/octane-auth.png?raw=true)
 
 Simple and customizable authentication module for JavaScript applications.
 
 ## Table of Contents
 
-- [Installation](#installation)
-- [Quick Start](#quick-start)
-- [Features](#features)
-- [API Reference](#api-reference)
-- [Examples](#examples)
-- [Security Considerations](#security-considerations)
+-   [Installation](#installation)
+-   [Quick Start](#quick-start)
+-   [Features](#features)
+-   [API Reference](#api-reference)
+-   [Examples](#examples)
+-   [Security Considerations](#security-considerations)
 
 ## Installation
 
@@ -24,28 +24,28 @@ yarn add octane-auth
 ## Quick Start
 
 ```javascript
-import OctaneAuth from 'octane-auth';
-import express from 'express';
+import OctaneAuth from "octane-auth";
+import express from "express";
 
 const app = express();
 const auth = new OctaneAuth({
-    jwtSecret: 'your-secret-key',
-    refreshSecret: 'your-refresh-secret-key',
+    jwtSecret: "your-secret-key",
+    refreshSecret: "your-refresh-secret-key",
 });
 
 // Protected route example
-app.get('/protected', auth.authenticate(), (req, res) => {
-    res.json({ message: 'Access granted', user: req.user });
+app.get("/protected", auth.authenticate(), (req, res) => {
+    res.json({ message: "Access granted", user: req.user });
 });
 ```
 
 ## Features
 
-- 🔐 JWT-based authentication with access and refresh tokens
-- 🔑 Secure password hashing with Argon2
-- 🚀 Express middleware support
-- ⚡ Simple and intuitive API
-- 🛡️ Built-in security best practices
+-   🔐 JWT-based authentication with access and refresh tokens
+-   🔑 Secure password hashing with Argon2
+-   🚀 Express middleware support
+-   ⚡ Simple and intuitive API
+-   🛡️ Built-in security best practices
 
 ## API Reference
 
@@ -55,12 +55,12 @@ Creates a new instance of OctaneAuth.
 
 #### Options
 
-| Option                 | Type   | Default                 | Description                           |
-|------------------------|--------|-------------------------|---------------------------------------|
-| jwtSecret              | string | 'your-secret-key'       | Secret key for JWT signing            |
-| refreshSecret          | string | 'your-refresh-secret-key'| Secret key for refresh token signing  |
-| tokenExpiration        | string | '1h'                    | Access token expiration time          |
-| refreshTokenExpiration | string | '7d'                    | Refresh token expiration time         |
+| Option                 | Type   | Default                   | Description                          |
+| ---------------------- | ------ | ------------------------- | ------------------------------------ |
+| jwtSecret              | string | 'your-secret-key'         | Secret key for JWT signing           |
+| refreshSecret          | string | 'your-refresh-secret-key' | Secret key for refresh token signing |
+| tokenExpiration        | string | '1h'                      | Access token expiration time         |
+| refreshTokenExpiration | string | '7d'                      | Refresh token expiration time        |
 
 ### Methods
 
@@ -69,7 +69,7 @@ Creates a new instance of OctaneAuth.
 Hashes a password using Argon2.
 
 ```javascript
-const hashedPassword = await auth.hashPassword('userPassword123');
+const hashedPassword = await auth.hashPassword("userPassword123");
 ```
 
 #### `async verifyPassword(hash: string, password: string): Promise<boolean>`
@@ -77,7 +77,7 @@ const hashedPassword = await auth.hashPassword('userPassword123');
 Verifies a password against a hash.
 
 ```javascript
-const isValid = await auth.verifyPassword(hashedPassword, 'userPassword123');
+const isValid = await auth.verifyPassword(hashedPassword, "userPassword123");
 ```
 
 #### `generateTokens(payload: object): { accessToken: string, refreshToken: string }`
@@ -97,7 +97,7 @@ try {
     const decoded = auth.verifyToken(accessToken);
     console.log(decoded.userId);
 } catch (error) {
-    console.error('Invalid token');
+    console.error("Invalid token");
 }
 ```
 
@@ -110,7 +110,7 @@ try {
     const decoded = auth.verifyRefreshToken(refreshToken);
     console.log(decoded.userId);
 } catch (error) {
-    console.error('Invalid refresh token');
+    console.error("Invalid refresh token");
 }
 ```
 
@@ -123,7 +123,7 @@ try {
     const { tokens } = auth.refreshAccessToken(oldRefreshToken);
     // Use the new accessToken and refreshToken
 } catch (error) {
-    console.error('Failed to refresh token');
+    console.error("Failed to refresh token");
 }
 ```
 
@@ -140,7 +140,7 @@ auth.invalidateRefreshToken(refreshToken);
 Express middleware for protecting routes using the access token.
 
 ```javascript
-app.get('/protected', auth.authenticate(), (req, res) => {
+app.get("/protected", auth.authenticate(), (req, res) => {
     res.json({ user: req.user });
 });
 ```
@@ -150,7 +150,7 @@ app.get('/protected', auth.authenticate(), (req, res) => {
 ### User Registration
 
 ```javascript
-app.post('/register', async (req, res) => {
+app.post("/register", async (req, res) => {
     const { username, password } = req.body;
 
     try {
@@ -159,7 +159,7 @@ app.post('/register', async (req, res) => {
         const { accessToken, refreshToken } = auth.generateTokens({ username });
         res.json({ accessToken, refreshToken });
     } catch (error) {
-        res.status(500).json({ error: 'Registration failed' });
+        res.status(500).json({ error: "Registration failed" });
     }
 });
 ```
@@ -167,7 +167,7 @@ app.post('/register', async (req, res) => {
 ### User Login
 
 ```javascript
-app.post('/login', async (req, res) => {
+app.post("/login", async (req, res) => {
     const { username, password } = req.body;
 
     try {
@@ -176,13 +176,13 @@ app.post('/login', async (req, res) => {
         const isValid = await auth.verifyPassword(user.hashedPassword, password);
 
         if (!isValid) {
-            return res.status(401).json({ error: 'Invalid credentials' });
+            return res.status(401).json({ error: "Invalid credentials" });
         }
 
         const { accessToken, refreshToken } = auth.generateTokens({ userId: user.id });
         res.json({ accessToken, refreshToken });
     } catch (error) {
-        res.status(401).json({ error: 'Login failed' });
+        res.status(401).json({ error: "Login failed" });
     }
 });
 ```
@@ -190,14 +190,14 @@ app.post('/login', async (req, res) => {
 ### Refreshing Access Token
 
 ```javascript
-app.post('/refresh-token', (req, res) => {
+app.post("/refresh-token", (req, res) => {
     const { refreshToken } = req.body;
 
     try {
         const { tokens } = auth.refreshAccessToken(refreshToken);
         res.json(tokens);
     } catch (error) {
-        res.status(401).json({ error: 'Invalid refresh token' });
+        res.status(401).json({ error: "Invalid refresh token" });
     }
 });
 ```
@@ -205,11 +205,11 @@ app.post('/refresh-token', (req, res) => {
 ### Logout (Invalidating Refresh Token)
 
 ```javascript
-app.post('/logout', (req, res) => {
+app.post("/logout", (req, res) => {
     const { refreshToken } = req.body;
 
     auth.invalidateRefreshToken(refreshToken);
-    res.json({ message: 'Logged out successfully' });
+    res.json({ message: "Logged out successfully" });
 });
 ```
 
@@ -227,8 +227,9 @@ const auth = new OctaneAuth({
 2. **HTTPS**: Always use HTTPS in production environments.
 
 3. **Token Storage**: Store tokens securely:
-   - Browser: Use HttpOnly cookies for refresh tokens, localStorage for access tokens
-   - Mobile: Use secure storage solutions
+
+    - Browser: Use HttpOnly cookies for refresh tokens, localStorage for access tokens
+    - Mobile: Use secure storage solutions
 
 4. **Password Requirements**: Implement strong password requirements.
 
