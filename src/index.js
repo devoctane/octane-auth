@@ -12,6 +12,7 @@ export default class OctaneAuth {
             tokenExpiration: options.tokenExpiration || "1h", // Access token expiration
             refreshTokenExpiration: options.refreshTokenExpiration || "7d", // Refresh token expiration
         };
+
         // In-memory storage for refresh tokens
         // In production, use a database instead
         this.refreshTokens = new Map();
@@ -21,7 +22,7 @@ export default class OctaneAuth {
         const minLength = 8;
         const regex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
 
-        if (!password || password.length < minLength || !regex.test(password)) throw new Error("Enter a strong password.");
+        if (!password || password.length < minLength || !regex.test(password)) throw new Error("Enter a strong password");
         // Regular expression for checking password strength
         // Password must be at least 8 characters long and contain letters and numbers.
     }
@@ -39,14 +40,10 @@ export default class OctaneAuth {
     generateTokens(payload) {
         const accessToken = jwt.sign(payload, this.options.jwtSecret, {
             expiresIn: this.options.tokenExpiration,
-            issuer: "octane-auth",
-            audience: "",
         });
 
         const refreshToken = jwt.sign(payload, this.options.refreshSecret, {
             expiresIn: this.options.refreshTokenExpiration,
-            issuer: "octane-auth",
-            audience: "",
         });
 
         // Store the refresh token (use a database in production)
@@ -59,7 +56,7 @@ export default class OctaneAuth {
         try {
             return await jwt.verify(token, this.options.jwtSecret);
         } catch (error) {
-            throw new Error("Invalid token.");
+            throw new Error("Invalid token");
         }
     }
 
@@ -69,12 +66,12 @@ export default class OctaneAuth {
 
             // Ensure the refresh token is stored (not invalidated)
             if (!this.refreshTokens.has(token)) {
-                throw new Error("Invalid refresh token.");
+                throw new Error("Invalid refresh token");
             }
 
             return payload;
         } catch (error) {
-            throw new Error("Invalid refresh token.");
+            throw new Error("Invalid refresh token");
         }
     }
 
@@ -99,14 +96,14 @@ export default class OctaneAuth {
         return async (req, res, next) => {
             const token = req.headers.authorization?.split(" ")[1];
             if (!token) {
-                return res.status(401).json({ error: "No token provided." });
+                return res.status(401).json({ error: "No token provided" });
             }
             try {
                 const decoded = await this.verifyToken(token);
                 req.user = decoded;
                 next();
             } catch (error) {
-                return res.status(401).json({ error: "Invalid token." });
+                return res.status(401).json({ error: "Invalid token" });
             }
         };
     }
