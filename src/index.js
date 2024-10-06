@@ -14,11 +14,18 @@ export default class OctaneAuth {
         this.refreshTokens = new Map();
     }
 
-    async hashPassword(password) {
-        if (!password || password.length === 0) throw new Error("Please provide a valid password!");
-        const hashedPassword = await argon2.hash(password);
+    validatePassword(password) {
+        const minLength = 8;
+        const regex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
 
-        return hashedPassword; // Return hashed password
+        if (!password || password.length < minLength || !regex.test(password)) throw new Error("Enter a strong password!");
+        // Regular expression for checking password strength
+        // Password must be at least 8 characters long and contain letters and numbers.
+    }
+
+    async hashPassword(password) {
+        this.validatePassword(password);
+        return await argon2.hash(password); // Return hashed password
     }
 
     async verifyPassword(hash, password) {

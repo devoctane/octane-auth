@@ -3,11 +3,12 @@ import jwt from "jsonwebtoken";
 
 const auth = new OctaneAuth();
 
-const password = "2034WJEFJA@#4423482f";
+const password = "Dealbasd23s";
 
 const checkPassword = async () => {
     const hasPass = await auth.hashPassword(password);
     auth.verifyPassword(hasPass, password);
+    console.log(hasPass);
 };
 
 checkPassword();
