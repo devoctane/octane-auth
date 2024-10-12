@@ -5,19 +5,12 @@ const app = express();
 const port = 3000;
 app.use(express.json());
 
-
 const auth = new OctaneAuth({
     jwtSecret: "your-secret-key",
     refreshSecret: "your-refresh-secret-key",
 });
 
-
-
-
 const users = new Map();
-
-
-
 
 app.post("/signup", async (req, res) => {
     const { username, password } = req.body;
@@ -33,9 +26,6 @@ app.post("/signup", async (req, res) => {
         res.status(400).json({ error: error.message });
     }
 });
-
-
-
 
 app.post("/login", async (req, res) => {
     const { username, password } = req.body;
@@ -54,15 +44,10 @@ app.post("/login", async (req, res) => {
     res.json(tokens);
 });
 
-
-
-
 // Protected route
 app.get("/protected", auth.authenticate(), (req, res) => {
     res.json({ message: `Hello, ${req.user.userId}!` });
 });
-
-
 
 // Refresh token route
 app.post("/refresh-token", (req, res) => {
@@ -75,9 +60,6 @@ app.post("/refresh-token", (req, res) => {
         res.status(400).json({ error: error.message });
     }
 });
-
-
-
 
 // Logout route (invalidate refresh token)
 app.post("/logout", (req, res) => {

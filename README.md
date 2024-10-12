@@ -1,6 +1,6 @@
 # Octane Auth Documentation
 
-![Octane Auth Logo](https://github.com/devoctane/file-system/blob/main/octane-auth/assets/images/octane-auth.png?raw=true)
+![Octane Auth Logo](https://octane-spaces.blr1.cdn.digitaloceanspaces.com/octane-auth.png)
 
 Simple and customizable authentication module for JavaScript applications.
 
