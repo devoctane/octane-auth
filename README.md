@@ -239,4 +239,4 @@ const auth = new OctaneAuth({
 
 ---
 
-For more information or to contribute, please visit the [OctaneAuth GitHub repository](https://github.com/yourusername/octane-auth).
+For more information or to contribute, please visit the [OctaneAuth GitHub repository](https://github.com/devoctane/octane-auth).
